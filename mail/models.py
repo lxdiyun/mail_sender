@@ -1,6 +1,10 @@
 """mail models"""
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from jinja2 import Template
 
@@ -21,7 +25,7 @@ class Mail(models.Model):
     """mail content"""
     subject = models.CharField(max_length=1024)
     content = HTMLField()
-    receivers = models.ManyToManyField('Receiver')
+    receivers = models.ManyToManyField('Receiver', null=True, blank=True)
 
     def __unicode__(self):
         return self.subject
@@ -31,8 +35,19 @@ class Mail(models.Model):
         return reverse("mail_detail", kwargs={'pk': self.id})
 
 
-def generate_mail(mail, receiver):
+def generate_mail_conent(mail, receiver):
         template = Template(mail.content)
         html = template.render(obj=receiver)
 
         return html
+
+def generate_mail(mail, receiver):
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = mail.subject
+    msg['From'] = settings.EMAIL_HOST_USER
+    msg['To'] = receiver.mail_address
+    msg.attach(MIMEText(generate_mail_conent(mail, receiver), 'html'))
+
+    return msg
+
+

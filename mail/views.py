@@ -3,7 +3,7 @@
 from django.http import Http404
 from django.http import HttpResponse
 
-from mail.models import Receiver, Mail, generate_mail
+from mail.models import Receiver, Mail, generate_mail_conent
 
 
 def mail_demo_view(request, mail_id, receiver_id):
@@ -21,6 +21,6 @@ def mail_demo_view(request, mail_id, receiver_id):
             receiver = None
 
     if mail and receiver:
-        return HttpResponse(generate_mail(mail, receiver))
+        return HttpResponse(generate_mail_conent(mail, receiver))
     else:
         raise Http404("mail or receiver not exist")
