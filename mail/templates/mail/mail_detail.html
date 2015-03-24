@@ -1,0 +1,36 @@
+{% extends "_layouts/base.html" %}
+
+{% block css %}
+{{block.super}}
+<style>
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{ object.subject }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{ object.content | safe }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        {% for receiver in object.receivers.all  %}
+        <li> <a href="{% url 'mail_demo' object.id receiver.id %}" target="blank">{{ receiver }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock content%}

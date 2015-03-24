@@ -10,11 +10,12 @@ def bad(request):
     1 / 0
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'mail_sender.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^bad/$', bad),
-    url(r'', include('base.urls')),
+                       # Examples:
+                       # url(r'^$', 'mail_sender.views.home', name='home'),
+                       # url(r'^blog/', include('blog.urls')),
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^bad/$', bad),
+                       url(r'^base/', include('base.urls')),
+                       url(r'^tinymce/', include('tinymce.urls')),
+                       url(r'', include('mail.urls')),
 )
-
