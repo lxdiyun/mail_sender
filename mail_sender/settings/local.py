@@ -76,7 +76,7 @@ SECRET_KEY = 'mc^je*ujm3m*v6$jj6wod3t93ab3prr9-id&y1$eg_744=jvua'
 # BROKER_VHOST = 'django'
 # CELERY_RESULT_BACKEND = 'amqp'
 
-## Log settings
+# Log settings
 
 # Remove this configuration variable to use your custom logging configuration
 LOGGING_CONFIG = None
@@ -92,8 +92,8 @@ LOGGING = {
 INTERNAL_IPS = ('127.0.0.1')
 
 TINYMCE_DEFAULT_CONFIG = {
-    'theme': "advanced",
+    'theme': "simple",
     'custom_undo_redo_levels': 10,
     'width': "640",
-    'height': "480"
+    'height': "480",
 }
