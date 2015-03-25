@@ -9,7 +9,11 @@ from . import base
 # To extend any settings from settings/base.py here's an example.
 # If you don't need to extend any settings from base.py, you do not need
 # to import base above
-INSTALLED_APPS = base.INSTALLED_APPS + ('django_nose', 'mail', 'tinymce')
+INSTALLED_APPS = base.INSTALLED_APPS + ('django_nose',
+                                        'mail',
+                                        'tinymce',
+                                        'import_export',
+                                        )
 
 DATABASES = {
     'default': {
@@ -91,6 +95,7 @@ LOGGING = {
 
 INTERNAL_IPS = ('127.0.0.1')
 
+# TINYMCE settings
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "simple",
     'custom_undo_redo_levels': 10,

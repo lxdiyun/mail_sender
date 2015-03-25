@@ -36,3 +36,6 @@ South
 
 # wysiswyg
 django-tinymce
+
+# excel import export
+django-import-export
