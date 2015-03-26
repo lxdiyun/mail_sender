@@ -36,12 +36,6 @@ DATABASES = {
     # },
 }
 
-# Recipients of traceback emails and other notifications.
-ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-)
-MANAGERS = ADMINS
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST  = "smtp.qq.com"
 EMAIL_PORT = 465
