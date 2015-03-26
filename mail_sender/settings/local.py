@@ -40,6 +40,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST  = "smtp.qq.com"
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+SERVER_EMAIL = "ad_li@foxmail.com"
 
 CACHES = {
     'default': {
