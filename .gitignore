@@ -23,3 +23,4 @@ test_db/
 media/*
 static/*
 mail_sender/settings/private.py
+logs/

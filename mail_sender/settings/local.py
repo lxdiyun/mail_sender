@@ -66,11 +66,6 @@ DEV = True
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# Hardcoded values can leak through source control. Consider loading
-# the secret key from an environment variable or a file instead.
-SECRET_KEY = 'mc^je*ujm3m*v6$jj6wod3t93ab3prr9-id&y1$eg_744=jvua'
-
 # Uncomment these to activate and customize Celery:
 # CELERY_ALWAYS_EAGER = False  # required to activate celeryd
 # BROKER_HOST = 'localhost'
@@ -80,18 +75,6 @@ SECRET_KEY = 'mc^je*ujm3m*v6$jj6wod3t93ab3prr9-id&y1$eg_744=jvua'
 # BROKER_VHOST = 'django'
 # CELERY_RESULT_BACKEND = 'amqp'
 
-# Log settings
-
-# Remove this configuration variable to use your custom logging configuration
-LOGGING_CONFIG = None
-LOGGING = {
-    'version': 1,
-    'loggers': {
-        'mail_sender': {
-            'level': "DEBUG"
-        }
-    }
-}
 
 INTERNAL_IPS = ('127.0.0.1')
 
@@ -101,4 +84,61 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 10,
     'width': "640",
     'height': "480",
+}
+
+# LOG settings
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        # Include the default Django email handler for errors
+        # This is what you'd get without configuring logging at all.
+        'mail_admins': {
+            'class': 'django.utils.log.AdminEmailHandler',
+            'level': 'ERROR',
+            # But the emails are plain text by default
+            # - HTML is nicer
+            'include_html': True,
+        },
+        # Log to a text file that can be rotated by logrotate
+        'logfile': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': 'logs/django.log',
+            'formatter':'standard',
+        },
+        'request_handler': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/django_request.log',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        },
+    },
+    'loggers': {
+        # Again, default Django configuration to email unhandled
+        # exceptions
+        'django.request': {
+            'handlers': ['mail_admins', 'logfile'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        # Might as well log any errors anywhere else in Django
+        'django': {
+            'handlers': ['logfile'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        # Your own app - this assumes all your logger names start
+        # with "myapp."
+        'mail': {
+            'handlers': ['logfile'],
+            'level': 'WARNING', # Or maybe INFO or DEBUG
+            'propagate': False
+        },
+    },
 }

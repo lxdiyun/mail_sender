@@ -169,8 +169,11 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 def custom_show_toolbar(request):
     """ Only show the debug toolbar to users with the superuser flag. """
-    return request.user.is_superuser
-
+    from django.conf import settings
+    if settings.DEBUG:
+        return request.user.is_superuser
+    else:
+        return False
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
@@ -286,16 +289,6 @@ SYSTEM_EMAIL_PREFIX = "[mail_sender]"
 LOG_LEVEL = logging.INFO
 HAS_SYSLOG = True
 SYSLOG_TAG = "http_app_mail_sender"  # Make this unique to your project.
-# Remove this configuration variable to use your custom logging configuration
-LOGGING_CONFIG = None
-LOGGING = {
-    'version': 1,
-    'loggers': {
-        'mail_sender': {
-            'level': "DEBUG"
-        }
-    }
-}
 
 # Common Event Format logging parameters
 #CEF_PRODUCT = 'mail_sender'
