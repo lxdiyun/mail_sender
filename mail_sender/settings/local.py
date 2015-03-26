@@ -123,7 +123,7 @@ LOGGING = {
         # Again, default Django configuration to email unhandled
         # exceptions
         'django.request': {
-            'handlers': ['mail_admins', 'logfile'],
+            'handlers': ['mail_admins', 'request_handler'],
             'level': 'ERROR',
             'propagate': True,
         },
