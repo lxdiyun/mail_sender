@@ -46,7 +46,7 @@ def generate_mail_conent(mail, receiver):
 def generate_mail(mail, receiver):
     msg = MIMEMultipart('alternative')
     msg['Subject'] = mail.subject
-    msg['From'] = settings.EMAIL_HOST_USER
+    msg['From'] = settings.SEND_MAIL_USER
     msg['To'] = receiver.mail_address
     msg.attach(MIMEText(generate_mail_conent(mail, receiver), 'html', 'utf-8'))
 
