@@ -13,12 +13,14 @@ from tinymce.models import HTMLField
 
 class Receiver(models.Model):
     """mail receiver"""
-    mail_address = models.CharField(max_length=64)
-    title = models.CharField(max_length=64)
-    company_name = models.CharField(max_length=128)
+    mail_address = models.CharField(max_length=128)
+    title = models.CharField(max_length=128)
+    company = models.CharField(max_length=256)
+    country  = models.CharField(max_length=256, blank=True, null=True)
+    city  = models.CharField(max_length=256, blank=True, null=True)
 
     def __unicode__(self):
-        return self.company_name + ":" + self.title + "[" + self.mail_address +"]"
+        return self.company + ":" + self.title + "[" + self.mail_address +"]"
 
 
 class Mail(models.Model):
@@ -46,7 +48,7 @@ def generate_mail(mail, receiver):
     msg['Subject'] = mail.subject
     msg['From'] = settings.EMAIL_HOST_USER
     msg['To'] = receiver.mail_address
-    msg.attach(MIMEText(generate_mail_conent(mail, receiver), 'html'))
+    msg.attach(MIMEText(generate_mail_conent(mail, receiver), 'html', 'utf-8'))
 
     return msg
 

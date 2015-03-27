@@ -28,7 +28,7 @@ def send_mail_to_draft_action():
 def send_mail_to_folder(folder, emails):
     """ upload emails to sepecial folder """
     imap = imaplib.IMAP4_SSL(settings.IMAP_HOST)
-    imap.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+    imap.login(settings.IMAP_USER, settings.IMAP_PASSWORD)
     try:
         for email in emails:
             imap.append(folder,
@@ -64,7 +64,7 @@ def send_mail_immediately_action():
 def send_mail_by_smtp(emails):
     """ send email by smtp immediatley """
     smtp = smtplib.SMTP_SSL(settings.SMTP_HOST)
-    smtp.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+    smtp.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
     try:
         for email in emails:
             smtp.sendmail(email["From"], [email["To"]], str(email))

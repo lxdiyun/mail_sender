@@ -9,7 +9,7 @@ from mail.actions import send_mail_to_draft_action, send_mail_immediately_action
 
 class ReceiverAdmin(ImportExportModelAdmin):
     """ receiver admin"""
-    list_display = ['mail_address', 'title', 'company_name']
+    list_display = ['mail_address', 'title', 'company', 'country', 'city']
 
 
 class ReceiverInline(admin.TabularInline):
