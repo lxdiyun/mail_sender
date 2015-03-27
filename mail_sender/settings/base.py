@@ -239,7 +239,7 @@ DATABASES = {
 
 # Recipients of traceback emails and other notifications.
 ADMINS = (
-    ('Adrian Lee', 'lxdiyun@gmail.com'),
+    #('name', 'mail@xxx.com'),
 )
 MANAGERS = ADMINS
 
